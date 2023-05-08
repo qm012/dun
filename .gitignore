@@ -19,3 +19,11 @@
 
 # Go workspace file
 go.work
+
+# An invisible file on the macOS operating system
+**/.DS_Store
+
+# IDE directory for storing configuration files related to the current workspace
+.idea
+.vscode
+.fleet

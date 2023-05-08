@@ -1,2 +1,2 @@
 # dun
-go web develop libary
+go web develop library
