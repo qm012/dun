@@ -1,8 +1,8 @@
 package dun
 
 // If Conditional operator
-// is expr = true result firstValue
-// is expr = false result secondValue
+// is expr = true return firstValue
+// is expr = false return secondValue
 func If[T any](expr bool, firstValue, secondValue T) T {
 	if expr {
 		return firstValue

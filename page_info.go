@@ -59,7 +59,8 @@ func (p *PageInfo) SetPageSize(pageNum, pageSize int) *PageInfo {
 	} else {
 		// Since the result is greater than startRow, the actual requirement is +1
 		p.StartRow = If(pageNum > 0, (pageNum-1)*pageSize, 0) + 1
-		p.EndRow = pageSize * pageNum
+		tempTotal := int64(pageSize * pageNum)
+		p.EndRow = int(If(tempTotal > p.Total, p.Total, tempTotal))
 	}
 
 	p.calcNavigatePageNums()
