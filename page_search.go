@@ -29,7 +29,7 @@ type PageSearch struct {
 
 // SortByMysql mysql based sorting
 // Field priority：p.SortField > customField[0]
-func (p *PageSearch) SortByMysql(customFields ...string) string {
+func (p *PageSearch) SortByMysql(sortFieldMap map[string]struct{}, customFields ...string) string {
 	if p.Sort == 0 {
 		return ""
 	}
@@ -44,10 +44,24 @@ func (p *PageSearch) SortByMysql(customFields ...string) string {
 	}
 
 	if p.SortField != "" {
+
+		if sortFieldMap != nil {
+			if _, ok := sortFieldMap[p.SortField]; !ok {
+				return ""
+			}
+		}
+
 		return p.SortField + spaceConnection + p.Sort.Mysql()
 	}
 
 	if customField != "" {
+
+		if sortFieldMap != nil {
+			if _, ok := sortFieldMap[customField]; !ok {
+				return ""
+			}
+		}
+
 		return customField + spaceConnection + customField
 	}
 
