@@ -5,7 +5,7 @@
 [//]: # ([![codecov]&#40;https://codecov.io/gh//qm012/dun/branch/main/graph/badge.svg&#41;]&#40;https://codecov.io/gh/qm012/dun&#41;)
 [![GoDoc](https://pkg.go.dev/badge/github.com/qm012/dun?status.svg)](https://pkg.go.dev/github.com/qm012/dun?tab=doc)
 [![Sourcegraph](https://sourcegraph.com/github.com/qm012/dun/-/badge.svg)](https://sourcegraph.com/github.com/qm012/dun?badge)
-[![Release](https://img.shields.io/github/release/qm012/dun.svg?style=flat-square)](https://github.com//qm012/dun/releases)
+[![Release](https://img.shields.io/github/release/qm012/dun.svg?style=flat-square)](https://github.com/qm012/dun/releases)
 
 go web develop tool library,includes pagination, middleware, pageSearch, response and other functions
 
