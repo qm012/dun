@@ -84,7 +84,7 @@ func mongoPaging(req *SerchUserinfoReq) (*dun.PageInfo, err){
 ```
 #### PageSearch
 
-##### 注：The value of `offset` depends on whether the current page exceeds the maximum number of pages. By default, the maximum number of pages is the main number. You can also call `dun.DisableCalcPageNum()` to cancel the calculation，`dun.DisableCalcPageNum()` global valid
+##### P.S.：The value of `offset` depends on whether the current page exceeds the maximum number of pages. By default, the maximum number of pages is the main number. You can also call `dun.DisableCalcPageNum()` to cancel the calculation，`dun.DisableCalcPageNum()` global valid
 ```go
 func GetUserinfoService(req *SearchUserinfoReq)  {
     // get request object data
