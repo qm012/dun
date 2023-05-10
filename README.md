@@ -25,12 +25,21 @@ import "github.com/qm012/dun"
 
 ### Examples reference
 
+#### Base info
+
+```go
+type SearchUserinfoReq struct {
+	Query string `json:"query" binding:"required,max=1000"`
+	dun.PageSearch
+}
+```
+
 #### PageInfo
 
 ```go
 // for gorm paging
 // Part of the code is omitted
-func gormPaging() (*dun.PageInfo, err){
+func gormPaging(req *SerchUserinfoReq) (*dun.PageInfo, err){
     var (
         count int64
         userinfo Userinfo
@@ -41,7 +50,7 @@ func gormPaging() (*dun.PageInfo, err){
     }
 	
     userinfoList := make([]*Userinfo, 0, req.PageSize)
-    err = *gorm.DB.Where(cmd, values...).Order(order).Limit(req.PageSize).Offset(req.RecordNo).Find(&userinfos).Error
+    err = *gorm.DB.Where(cmd, values...).Order(req.SortByMysql(nil, "id")).Limit(req.PageSize).Offset(req.Offset(count)).Find(&userinfos).Error
     if err !=nil {
         return nil, err
     }
@@ -53,7 +62,7 @@ func gormPaging() (*dun.PageInfo, err){
 
 // for mongo paging 
 // Part of the code is omitted
-func mongoPaging() (*dun.PageInfo, err){
+func mongoPaging(req *SerchUserinfoReq) (*dun.PageInfo, err){
     count, err := *mongo.Collection.CountDocuments(context.Background(), bson.D{})
 	if err != nil {
 		return nil, err
@@ -61,7 +70,7 @@ func mongoPaging() (*dun.PageInfo, err){
 	
     opt := options.Find().
         SetLimit(int64(req.PageSize)).
-        SetSkip(int64(req.RecordNo))
+        SetSkip(int64(req.Offset(count)))
     cursor,err:=*mongo.Collection.Find(ctx, filter, opt)
     if err != nil {
         return nil, err
@@ -73,7 +82,31 @@ func mongoPaging() (*dun.PageInfo, err){
 } 
 
 ```
+#### PageSearch
 
+##### 注：The value of `offset` depends on whether the current page exceeds the maximum number of pages. By default, the maximum number of pages is the main number. You can also call `dun.DisableCalcPageNum()` to cancel the calculation，`dun.DisableCalcPageNum()` global valid
+```go
+func GetUserinfoService(req *SearchUserinfoReq)  {
+    // get request object data
+	sortFieldMap := map[string]struct{}{
+	    "id":  {},
+	    "name":{},
+		"sort":{},
+    }
+    // Prevents sql injection. Properties are valid when they exist in sortFieldMap 
+	`example1：`*gorm.DB.Where(cmd, values...).Order(req.SortByMysql(sortFieldMap))
+    // req.SortField level gt customField
+	`example2：`*gorm.DB.Where(cmd, values...).Order(req.SortByMysql(sortFieldMap, "id"))
+
+    totalCount := 290 // total records，data source: Select/Find mysql/mongo data
+    offset:=req.Offset(totalCount)
+    `example mysql：`*gorm.DB.Where(cmd, values...).Limit(req.PageSize).Offset(offset)
+    `example mongo：`opt := options.Find().
+                            SetLimit(int64(req.PageSize)).
+                            SetSkip(int64(offset))
+}
+
+```
 
 ## License
 
