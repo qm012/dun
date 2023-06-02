@@ -7,7 +7,7 @@
 [![Sourcegraph](https://sourcegraph.com/github.com/qm012/dun/-/badge.svg)](https://sourcegraph.com/github.com/qm012/dun?badge)
 [![Release](https://img.shields.io/github/release/qm012/dun.svg?style=flat-square)](https://github.com/qm012/dun/releases)
 
-go web develop tool library,includes pagination, middleware, pageSearch, response and other functions
+go gin web develop tool library,includes pagination, middleware, pageSearch, response and other functions
 
 ## Getting started
 
