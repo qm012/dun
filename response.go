@@ -33,6 +33,13 @@ func Success(c *gin.Context, data ...any) {
 	c.JSON(http.StatusOK, NewResponse(StatusCodeSuccess, data...))
 }
 
+// Failed200 http statusCode 200 result
+//
+//	dataChain[0] It must be an StatusCode object
+func Failed200(c *gin.Context, dataChain ...any) {
+	Failed(c, http.StatusOK, dataChain...)
+}
+
 // Failed400 Parameter error return, can carry a specific parameter error
 //
 //	dataChain[0] It must be an StatusCode object
