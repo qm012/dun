@@ -3,6 +3,7 @@ package ok
 import (
 	"errors"
 	"fmt"
+	"net/http"
 )
 
 var (
@@ -28,6 +29,14 @@ func NewStatusCode(code int, err error) *StatusCode {
 		errMsg = err.Error()
 	}
 	return &StatusCode{Code: code, Message: errMsg}
+}
+
+func StatusCode400(errs ...error) *StatusCode {
+	var tempErr = errors.New("parameter error")
+	if len(errs) > 0 {
+		tempErr = errs[0]
+	}
+	return NewStatusCode(http.StatusBadRequest, tempErr)
 }
 
 func StatusCode500(errs ...error) *StatusCode {

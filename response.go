@@ -119,8 +119,8 @@ func Failed504(c *gin.Context, dataChain ...any) {
 func Failed(c *gin.Context, code int, dataChain ...any) {
 
 	var (
-		statusCode = StatusCode200 // default
-		data       any             // result json data
+		statusCode = StatusCode500() // default
+		data       any               // result json data
 	)
 
 	length := len(dataChain)
