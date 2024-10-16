@@ -26,11 +26,16 @@ func NewResponse(statusCode *StatusCode, data ...any) *Response {
 	return response
 }
 
-// Success Return can carry data on success
+// Success200 Return can carry data on success
 //
 //	dataChain[0] It must be an StatusCode object
-func Success(c *gin.Context, data ...any) {
-	c.JSON(http.StatusOK, NewResponse(StatusCodeSuccess, data...))
+func Success200(c *gin.Context, data ...any) {
+	c.JSON(http.StatusOK, NewResponse(StatusCode200, data...))
+}
+
+// Success201 Return success0
+func Success201(c *gin.Context) {
+	c.JSON(http.StatusCreated, nil)
 }
 
 // Failed200 http statusCode 200 result
@@ -114,8 +119,8 @@ func Failed504(c *gin.Context, dataChain ...any) {
 func Failed(c *gin.Context, code int, dataChain ...any) {
 
 	var (
-		statusCode = StatusCodeSystemError // default
-		data       any                     // result json data
+		statusCode = StatusCode200 // default
+		data       any             // result json data
 	)
 
 	length := len(dataChain)
@@ -123,7 +128,7 @@ func Failed(c *gin.Context, code int, dataChain ...any) {
 		var ok bool
 		statusCode, ok = dataChain[0].(*StatusCode)
 		if !ok {
-			statusCode = StatusCodeSystemError
+			statusCode = StatusCode500()
 		}
 	}
 

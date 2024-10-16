@@ -5,4 +5,4 @@
 package dun
 
 // Version is the current dun library version.
-const Version = "v0.0.1"
+const Version = "v0.0.5"
