@@ -2,7 +2,7 @@
 // Use of this source code is governed by a MIT style
 // license that can be found in the LICENSE file.
 
-package dun
+package ok
 
-// Version is the current dun library version.
+// Version is the current ok library version.
 const Version = "v0.0.5"

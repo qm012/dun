@@ -1,4 +1,4 @@
-package dun
+package ok
 
 import "testing"
 
