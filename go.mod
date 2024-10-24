@@ -1,4 +1,4 @@
-module github.com/qm012/ok
+module github.com/qm012/okk
 
 go 1.20
 

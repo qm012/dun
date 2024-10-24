@@ -1,4 +1,4 @@
-package ok
+package okk
 
 import (
 	"github.com/gin-gonic/gin"

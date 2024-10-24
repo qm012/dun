@@ -1,4 +1,4 @@
-package ok
+package okk
 
 import (
 	"errors"
@@ -7,7 +7,8 @@ import (
 )
 
 var (
-	StatusCode200             = NewStatusCode(200, errors.New("success"))                                      // success case status code
+	StatusCode200             = NewStatusCode(http.StatusOK, errors.New("success"))                            // success case status code
+	StatusCode404             = NewStatusCode(http.StatusNotFound, errors.New("route not found"))              // route not found case status code
 	StatusCodeExternalService = NewStatusCode(10001, errors.New("external services are unavailable"))          // Third party service：A situation in which external services are unavailable
 	StatusCodeInternalService = NewStatusCode(10002, errors.New("internal services are unavailable"))          // Other services in the microservice：An internal service is unavailable
 	StatusCodeSystemBusy      = NewStatusCode(10003, errors.New("the system is busy, please try again later")) // When the system is busy

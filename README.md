@@ -1,26 +1,26 @@
 # ok web develop tool library
 
-[//]: # ([![Build Status]&#40;https://github.com//qm012/ok/workflows/Run%20Tests/badge.svg?branch=main&#41;]&#40;https://github.com/qm012/ok/actions?query=branch%3Amian&#41;)
+[//]: # ([![Build Status]&#40;https://github.com//qm012/okk/workflows/Run%20Tests/badge.svg?branch=main&#41;]&#40;https://github.com/qm012/okk/actions?query=branch%3Amian&#41;)
 
-[//]: # ([![codecov]&#40;https://codecov.io/gh//qm012/ok/branch/main/graph/badge.svg&#41;]&#40;https://codecov.io/gh/qm012/ok&#41;)
-[![GoDoc](https://pkg.go.dev/badge/github.com/qm012/ok?status.svg)](https://pkg.go.dev/github.com/qm012/ok?tab=doc)
-[![Sourcegraph](https://sourcegraph.com/github.com/qm012/ok/-/badge.svg)](https://sourcegraph.com/github.com/qm012/ok?badge)
-[![Release](https://img.shields.io/github/release/qm012/ok.svg?style=flat-square)](https://github.com/qm012/ok/releases)
+[//]: # ([![codecov]&#40;https://codecov.io/gh//qm012/okk/branch/main/graph/badge.svg&#41;]&#40;https://codecov.io/gh/qm012/okk&#41;)
+[![GoDoc](https://pkg.go.dev/badge/github.com/qm012/okk?status.svg)](https://pkg.go.dev/github.com/qm012/okk?tab=doc)
+[![Sourcegraph](https://sourcegraph.com/github.com/qm012/okk/-/badge.svg)](https://sourcegraph.com/github.com/qm012/okk?badge)
+[![Release](https://img.shields.io/github/release/qm012/okk.svg?style=flat-square)](https://github.com/qm012/okk/releases)
 
 go gin web develop tool library,includes pagination, middleware, pageSearch, response and other functions
 
 ## Getting started
 
-### Getting ok
+### Getting okk
 
 ```sh
-$ go get -u github.com/qm012/ok
+$ go get -u github.com/qm012/okk
 ```
 
 With [Go module](https://github.com/golang/go/wiki/Modules) support, simply add the following import
 
 ```go
-import "github.com/qm012/ok"
+import "github.com/qm012/okk"
 ```
 
 ### Examples reference
@@ -30,7 +30,7 @@ import "github.com/qm012/ok"
 ```go
 type SearchUserinfoReq struct {
 	Query string `json:"query" binding:"required,max=1000"`
-	ok.PageSearch
+	okk.PageSearch
 }
 ```
 
@@ -39,7 +39,7 @@ type SearchUserinfoReq struct {
 ```go
 // for gorm paging
 // Part of the code is omitted
-func gormPaging(req *SerchUserinfoReq) (*ok.PageInfo, err){
+func gormPaging(req *SerchUserinfoReq) (*okk.PageInfo, err){
     var (
         count int64
         userinfo Userinfo
@@ -55,14 +55,14 @@ func gormPaging(req *SerchUserinfoReq) (*ok.PageInfo, err){
         return nil, err
     }
     
-    info := ok.NewPageInfo(count, userinfoList).SetPageSize(req.PageNum, req.PageSize)
+    info := okk.NewPageInfo(count, userinfoList).SetPageSize(req.PageNum, req.PageSize)
     // info object can be used by the frontend
     return info, nil
 }
 
 // for mongo paging 
 // Part of the code is omitted
-func mongoPaging(req *SerchUserinfoReq) (*ok.PageInfo, err){
+func mongoPaging(req *SerchUserinfoReq) (*okk.PageInfo, err){
     count, err := *mongo.Collection.CountDocuments(context.Background(), bson.D{})
 	if err != nil {
 		return nil, err
@@ -76,7 +76,7 @@ func mongoPaging(req *SerchUserinfoReq) (*ok.PageInfo, err){
         return nil, err
     }
     userinfoList := make([]*Userinfo, 0, req.PageSize) // cursor.All(ctx, &userinfos) 
-    info := ok.NewPageInfo(count, userinfoList).SetPageSize(req.PageNum, req.PageSize)
+    info := okk.NewPageInfo(count, userinfoList).SetPageSize(req.PageNum, req.PageSize)
     // info object can be used by the frontend
     return info, nil
 } 
@@ -84,7 +84,7 @@ func mongoPaging(req *SerchUserinfoReq) (*ok.PageInfo, err){
 ```
 #### PageSearch
 
-##### P.S.：The value of `offset` depends on whether the current page exceeds the maximum number of pages. By default, the maximum number of pages is the main number. You can also call `ok.DisableCalcPageNum()` to cancel the calculation，`ok.DisableCalcPageNum()` global valid
+##### P.S.：The value of `offset` depends on whether the current page exceeds the maximum number of pages. By default, the maximum number of pages is the main number. You can also call `okk.DisableCalcPageNum()` to cancel the calculation，`okk.DisableCalcPageNum()` global valid
 ```go
 func GetUserinfoService(req *SearchUserinfoReq)  {
     // get request object data
@@ -110,10 +110,10 @@ func GetUserinfoService(req *SearchUserinfoReq)  {
 
 ## License
 
-The ok web tool is open-sourced software licensed under the [Apache license](./LICENSE).
+The okk web tool is open-sourced software licensed under the [Apache license](./LICENSE).
 
 ## Acknowledgments
 
-The following project had particular influence on ok's design.
+The following project had particular influence on okk's design.
 
 - [pagehelper/Mybatis-PageHelper](https://github.com/pagehelper/Mybatis-PageHelper) Mybatis通用分页插件

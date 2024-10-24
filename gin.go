@@ -1,4 +1,4 @@
-package ok
+package okk
 
 var (
 	GinContextRequestIDKey = "_app/gin/requestidkey"
