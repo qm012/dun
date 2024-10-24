@@ -8,15 +8,17 @@ import (
 
 // Response Return the complete information to the client
 type Response struct {
+	RequestID string `json:"request_id,omitempty" xml:"request_id,omitempty"`
 	*StatusCode
 	Data any `json:"data,omitempty" xml:"data,omitempty"` // Data object
 }
 
 // NewResponse The constructor of Response
-func NewResponse(statusCode *StatusCode, data ...any) *Response {
+func NewResponse(ctx *gin.Context, statusCode *StatusCode, data ...any) *Response {
 
 	response := &Response{
 		StatusCode: statusCode,
+		RequestID:  ctx.GetString(GinContextRequestIDKey),
 	}
 
 	if len(data) > 0 && data[0] != nil && !reflect.ValueOf(data[0]).IsZero() {
@@ -30,7 +32,7 @@ func NewResponse(statusCode *StatusCode, data ...any) *Response {
 //
 //	dataChain[0] It must be an StatusCode object
 func Success200(c *gin.Context, data ...any) {
-	c.JSON(http.StatusOK, NewResponse(StatusCode200, data...))
+	c.JSON(http.StatusOK, NewResponse(c, StatusCode200, data...))
 }
 
 // Success201 Return success0
@@ -135,5 +137,5 @@ func Failed(c *gin.Context, code int, dataChain ...any) {
 	if length > 1 {
 		data = dataChain[1]
 	}
-	c.JSON(code, NewResponse(statusCode, data))
+	c.JSON(code, NewResponse(c, statusCode, data))
 }

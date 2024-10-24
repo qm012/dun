@@ -16,10 +16,10 @@ var (
 	StatusCodeDataNotFound    = NewStatusCode(10006, errors.New("data error"))
 )
 
-// StatusCode Custom return status code messages
+// StatusCode Custom return status code msg
 type StatusCode struct {
-	Code    int    `json:"code" xml:"code"`
-	Message string `json:"message" xml:"message"`
+	Code int    `json:"code" xml:"code"`
+	Msg  string `json:"msg" xml:"msg"`
 }
 
 // NewStatusCode The constructor of StatusCode
@@ -28,7 +28,7 @@ func NewStatusCode(code int, err error) *StatusCode {
 	if err != nil {
 		errMsg = err.Error()
 	}
-	return &StatusCode{Code: code, Message: errMsg}
+	return &StatusCode{Code: code, Msg: errMsg}
 }
 
 func StatusCode400(errs ...error) *StatusCode {
@@ -49,5 +49,5 @@ func StatusCode500(errs ...error) *StatusCode {
 
 // Error impl error
 func (s *StatusCode) Error() string {
-	return fmt.Sprintf("code:%d message:%s", s.Code, s.Message)
+	return fmt.Sprintf("code:%d msg:%s", s.Code, s.Msg)
 }
