@@ -8,6 +8,7 @@ import (
 
 // Response Return the complete information to the client
 type Response struct {
+	TraceID   string `json:"trace_id,omitempty" xml:"trace_id,omitempty"`
 	RequestID string `json:"request_id,omitempty" xml:"request_id,omitempty"`
 	*StatusCode
 	Data any `json:"data,omitempty" xml:"data,omitempty"` // Data object
@@ -17,8 +18,9 @@ type Response struct {
 func NewResponse(ctx *gin.Context, statusCode *StatusCode, data ...any) *Response {
 
 	response := &Response{
-		StatusCode: statusCode,
+		TraceID:    ctx.GetString(GinContextTraceIDKey),
 		RequestID:  ctx.GetString(GinContextRequestIDKey),
+		StatusCode: statusCode,
 	}
 
 	if len(data) > 0 && data[0] != nil && !reflect.ValueOf(data[0]).IsZero() {
